@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Book;
+use JWTAuth;
 
 class BookController extends Controller
 {
@@ -15,15 +17,19 @@ class BookController extends Controller
     public function index()
     {
         // native: select * from books;
+        
         return Book::get();
     }
-
+    public function __construct() {
+        $this->middleware('auth:api');
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //
@@ -32,7 +38,7 @@ class BookController extends Controller
             "description" => $request->description,
             "author" => $request->author,
             "publisher" => $request->publisher,
-            "date_of_issue" => $request->date_of_issue
+            "date_of_issue" => $request->date_of_issue,
         ]);
     }
 
@@ -63,7 +69,7 @@ class BookController extends Controller
             "description" => $request->description,
             "author" => $request->author,
             "publisher" => $request->publisher,
-            "date_of_issue" => $request->date_of_issue
+            "date_of_issue" => $request->date_of_issue,
         ]);
     }
 
